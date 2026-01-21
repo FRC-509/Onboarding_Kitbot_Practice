@@ -6,25 +6,34 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.IDs;
 
-public class ExampleSubsystem extends SubsystemBase {
+import com.ctre.phoenix6.hardware.TalonFX;
+
+public class TankDrive extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
-  public ExampleSubsystem() {}
-
-  /**
-   * Example command factory method.
-   *
-   * @return a command
-   */
-  public Command exampleMethodCommand() {
-    // Inline construction of command goes here.
-    // Subsystem::RunOnce implicitly requires `this` subsystem.
-    return runOnce(
-        () -> {
-          /* one-time action goes here */
-        });
+    public final TalonFX frontRight = new TalonFX(IDs.frontRightID);
+    public final TalonFX backRight = new TalonFX(IDs.backRightID);
+    public final TalonFX frontleft = new TalonFX(IDs.frontLeftID);
+    public final TalonFX backLeft = new TalonFX(IDs.backLeftID);
+    
+  private void leftDrive(double speed){
+    frontLeft.setControl(speed);
+    backLeft.setControl(speed);
   }
 
+  private void rightDrive(double speed){
+    frontRight.setControl(speed);
+    backRight.setControl(speed);
+  }
+
+  public void drive(double forward, double right){
+    double leftSpeed = forward + right;
+    double rightSpeed = forward - right;
+    leftDrive(leftSpeed);
+    rightDrive(rightSpeed);
+  }
+  
   /**
    * An example method querying a boolean state of the subsystem (for example, a digital sensor).
    *
