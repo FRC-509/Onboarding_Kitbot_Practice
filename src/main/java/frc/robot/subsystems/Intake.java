@@ -23,6 +23,10 @@ public class Intake extends SubsystemBase {
     intakeMotor.set(intakeConstants.kOuttakeSpeed);
   }
 
+  private void end(){
+    intakeMotor.set(0);
+  }
+
   /**
    * Example command factory method.
    *

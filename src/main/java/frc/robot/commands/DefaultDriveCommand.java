@@ -9,11 +9,12 @@ import java.util.function.DoubleSupplier;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.Subsystem;
+import frc.robot.subsystems.TankDrive;
 
 /** An example command that uses an example subsystem. */
 public class DefaultDriveCommand extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final Subsystem tankDrive;
+  private final TankDrive tankDrive;
   private final DoubleSupplier rightSupplier;
   private final DoubleSupplier forwardSupplier;
   /**
@@ -21,18 +22,13 @@ public class DefaultDriveCommand extends Command {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public DefaultDriveCommand(Subsystem tankDrive, DoubleSupplier rightSupplier, DoubleSupplier forwardSupplier) {
+  public DefaultDriveCommand(TankDrive tankDrive, DoubleSupplier rightSupplier, DoubleSupplier forwardSupplier) {
     this.tankDrive = tankDrive;
     this.rightSupplier = rightSupplier;
     this.forwardSupplier = forwardSupplier;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(tankDrive);
   }
-
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {}
-
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
