@@ -22,8 +22,8 @@ public final class Constants {
   }
 
   public final class intakeConstants{
-    public static final double intakeSpeed = 0.3;
-    public static final double outtakeSpeed = 0.3;
+    public static final double kIntakeSpeed = 0.3;
+    public static final double kOuttakeSpeed = 0.3;
   }
 
   public final class IDs{

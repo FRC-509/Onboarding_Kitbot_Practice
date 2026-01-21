@@ -16,11 +16,11 @@ public class Intake extends SubsystemBase {
   public Intake() {}
 
   public void intake(){
-    intakeMotor.set(intakeConstants.intakeSpeed);
+    intakeMotor.set(intakeConstants.kIntakeSpeed);
   }
 
   public void outtake(){
-    intakeMotor.set(intakeConstants.outtakeSpeed);
+    intakeMotor.set(intakeConstants.kOuttakeSpeed);
   }
 
   /**
