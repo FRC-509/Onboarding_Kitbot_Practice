@@ -6,6 +6,7 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.DefaultDriveCommand;
+import frc.robot.commands.IntakeCommand;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.TankDrive;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -20,8 +21,8 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final Intake intake = new Intake();
-  private final TankDrive tankDrive = new TankDrive();
+  private final Intake intakeSubsystem = new Intake();
+  private final TankDrive tankDriveSubsystem = new TankDrive();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController driverController =
@@ -29,9 +30,12 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    tankDrive.setDefaultCommand(
-      new DefaultDriveCommand(tankDrive, () -> driverController.getLeftX(), () -> driverController.getLeftY())
-    );
+    tankDriveSubsystem.setDefaultCommand(
+      new DefaultDriveCommand(
+        tankDriveSubsystem,
+         () -> driverController.getLeftX(), 
+         () -> driverController.getLeftY())
+      );
     // Configure the trigger bindings
     configureBindings();
   }
@@ -50,7 +54,7 @@ public class RobotContainer {
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-    driverController.rightTrigger().whileTrue(intake.intake());
+    driverController.rightTrigger().onTrue(new IntakeCommand());
   }
 
   /**
