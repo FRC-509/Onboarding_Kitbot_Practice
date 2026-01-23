@@ -18,7 +18,7 @@ public class IntakeCommand extends Command {
    * @param subsystem The subsystem used by this command.
    */
   public IntakeCommand(Intake intake) {
-    m_subsystem = subsystem;
+    this.intake = intake;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(intake);
   }

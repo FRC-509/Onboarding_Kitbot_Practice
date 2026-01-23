@@ -20,7 +20,7 @@ public class OuttakeCommand extends Command {
    * @param subsystem The subsystem used by this command.
    */
   public OuttakeCommand(Intake intake) {
-    m_subsystem = subsystem;
+    this.intake = intake;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(intake);
   }
