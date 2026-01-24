@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import java.util.function.DoubleSupplier;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.Subsystem;
@@ -34,13 +35,14 @@ public class DefaultDriveCommand extends Command {
   public void execute() {
     double right = rightSupplier.getAsDouble();
     double forward = forwardSupplier.getAsDouble();
-
+    SmartDashboard.putBoolean("Tank Drive Active: ", true);
     tankDrive.drive(forward, right);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    SmartDashboard.putBoolean("Tank Drive Active:", false);
     tankDrive.drive(0,0);
   }
 

@@ -9,6 +9,7 @@ import frc.robot.commands.DefaultDriveCommand;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.TankDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -30,6 +31,7 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
+    
     configureBindings();
   }
 
@@ -47,8 +49,8 @@ public class RobotContainer {
     tankDriveSubsystem.setDefaultCommand(
       new DefaultDriveCommand(
         tankDriveSubsystem,
-         () -> driverController.getRightX(), 
-         () -> -driverController.getLeftY())
+         () -> -driverController.getLeftX(), 
+         () -> driverController.getLeftY())
          );
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
@@ -66,4 +68,9 @@ public class RobotContainer {
   //   // An example command will be run in autonomous
   //   // return Autos.exampleAuto(m_exampleSubsystem);
   // }
+
+  public void ContainerPeriodic(){
+    SmartDashboard.putNumber("Forward: ", driverController.getRightX());
+    SmartDashboard.putNumber("Right: ", driverController.getLeftX());
+  }
 }

@@ -11,6 +11,7 @@ import frc.robot.Constants;
 import frc.robot.Constants.IDs;
 
 import com.ctre.phoenix6.controls.VelocityDutyCycle;
+import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
@@ -25,6 +26,7 @@ public class TankDrive extends SubsystemBase {
 
     private final VelocityDutyCycle leftRequest = new VelocityDutyCycle(0);
     private final VelocityDutyCycle rightRequest = new VelocityDutyCycle(0);
+    //private final VoltageOut openLoop = new VoltageOut(0).withEnableFOC(false);
 
   public TankDrive(){
     TalonFXConfiguration driveConfig = new TalonFXConfiguration();
@@ -44,15 +46,15 @@ public class TankDrive extends SubsystemBase {
     //sets left speed closed loop- yayy!
   private void leftDrive(double speed){
     MathUtil.clamp(speed, -1, 1);
-    frontLeft.setControl(leftRequest.withVelocity(speed * 5));
-    backLeft.setControl(leftRequest.withVelocity(speed * 5));
+    frontLeft.setControl(leftRequest.withVelocity(-speed * 8));
+    backLeft.setControl(leftRequest.withVelocity(-speed * 8));
   }
 
   //  sets right speed with closed loop
   private void rightDrive(double speed){
     MathUtil.clamp(speed, -1, 1);
-    frontRight.setControl(rightRequest.withVelocity(speed * 5));
-    backRight.setControl(rightRequest.withVelocity(speed* 5));
+    frontRight.setControl(rightRequest.withVelocity(speed * 8));
+    backRight.setControl(rightRequest.withVelocity(speed* 8));
   }
 
   // method for driving
@@ -68,25 +70,5 @@ public class TankDrive extends SubsystemBase {
   public void EmergencyStop(){
     rightDrive(0);
     leftDrive(0);
-  }
-  
-  /**
-   * An example method querying a boolean state of the subsystem (for example, a digital sensor).
-   *
-   * @return value of some boolean subsystem state, such as a digital sensor.
-   */
-  public boolean exampleCondition() {
-    // Query some boolean state, such as a digital sensor.
-    return false;
-  }
-
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
-
-  @Override
-  public void simulationPeriodic() {
-    // This method will be called once per scheduler run during simulation
   }
 }
