@@ -29,12 +29,6 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    tankDriveSubsystem.setDefaultCommand(
-      new DefaultDriveCommand(
-        tankDriveSubsystem,
-         () -> driverController.getLeftX(), 
-         () -> driverController.getLeftY())
-      );
     // Configure the trigger bindings
     configureBindings();
   }
@@ -50,7 +44,12 @@ public class RobotContainer {
    */
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-
+    tankDriveSubsystem.setDefaultCommand(
+      new DefaultDriveCommand(
+        tankDriveSubsystem,
+         () -> driverController.getRightX(), 
+         () -> -driverController.getLeftY())
+         );
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
     driverController.rightTrigger().onTrue(new IntakeCommand(intakeSubsystem));

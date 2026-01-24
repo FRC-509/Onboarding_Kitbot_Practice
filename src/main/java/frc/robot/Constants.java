@@ -22,27 +22,27 @@ public final class Constants {
   }
 
   public final class intakeConstants{
-    public static final double kIntakeSpeed = 0.3;
+    public static final double kIntakeSpeed = -0.3;
     public static final double kOuttakeSpeed = 0.3;
   }
 
   public final class IDs{
     //drive IDs
 
-    public static final int frontLeftID = 0;
-    public static final int backLeftID = 0;
-    public static final int frontRightID = 0;
-    public static final int backRightID = 0;
+    public static final int frontLeftID = 1;
+    public static final int backLeftID = 2;
+    public static final int frontRightID = 3;
+    public static final int backRightID = 4;
 
     //intakeIDs
 
-    public static final int intakeMotorID = 0;
+    public static final int intakeMotorID = 5;
   }
 
   public final class PIDConstants{
     public final class Drive{
-      public static final double kDriveP = 0;
-      public static final double kDriveI = 0;
+      public static final double kDriveP = 0.027;
+      public static final double kDriveI = 0.070;
       public static final double kDriveD = 0;
     }
 

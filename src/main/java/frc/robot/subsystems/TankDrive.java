@@ -44,15 +44,15 @@ public class TankDrive extends SubsystemBase {
     //sets left speed closed loop- yayy!
   private void leftDrive(double speed){
     MathUtil.clamp(speed, -1, 1);
-    frontLeft.setControl(leftRequest.withVelocity(speed));
-    backLeft.setControl(leftRequest.withVelocity(speed));
+    frontLeft.setControl(leftRequest.withVelocity(speed * 5));
+    backLeft.setControl(leftRequest.withVelocity(speed * 5));
   }
 
   //  sets right speed with closed loop
   private void rightDrive(double speed){
     MathUtil.clamp(speed, -1, 1);
-    frontRight.setControl(rightRequest.withVelocity(speed));
-    backRight.setControl(rightRequest.withVelocity(speed));
+    frontRight.setControl(rightRequest.withVelocity(speed * 5));
+    backRight.setControl(rightRequest.withVelocity(speed* 5));
   }
 
   // method for driving
@@ -63,7 +63,6 @@ public class TankDrive extends SubsystemBase {
     rightDrive(rightSpeed);
     SmartDashboard.putNumber("Right speed: ", rightSpeed);
     SmartDashboard.putNumber("Left speed: ", leftSpeed);
-
   }
 
   public void EmergencyStop(){

@@ -13,32 +13,30 @@ import frc.robot.Constants.intakeConstants;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.controls.VoltageOut;
 
 public class Intake extends SubsystemBase {
   public final TalonFX intakeMotor = new TalonFX(IDs.intakeMotorID);
-  
+  public final VoltageOut intakeVoltageOut = new VoltageOut(0).withEnableFOC(false);
   
 
   public Intake() {
     TalonFXConfiguration intakeConfig = new TalonFXConfiguration();
 
     // PID values
-    intakeConfig.Slot0.kP = Constants.PIDConstants.Drive.kDriveP;
-    intakeConfig.Slot0.kI = Constants.PIDConstants.Drive.kDriveI;
-    intakeConfig.Slot0.kD = Constants.PIDConstants.Drive.kDriveD;
-    intakeConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
+    intakeConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
 
-    //aplying the PID
+    //aplying the Configs
     intakeMotor.getConfigurator().apply(intakeConfig);
   }
 
   public void intake(){
-    intakeMotor.set(intakeConstants.kIntakeSpeed);
+    intakeMotor.setControl(intakeVoltageOut.withOutput(intakeConstants.kIntakeSpeed));
     
   }
 
   public void outtake(){
-    intakeMotor.set(intakeConstants.kOuttakeSpeed);
+    intakeMotor.setControl(intakeVoltageOut.withOutput(intakeConstants.kOuttakeSpeed));
   }
 
   private void end(){
@@ -59,7 +57,7 @@ public class Intake extends SubsystemBase {
         });
   }
 
-  /**
+  /*
    * An example method querying a boolean state of the subsystem (for example, a digital sensor).
    *
    * @return value of some boolean subsystem state, such as a digital sensor.
