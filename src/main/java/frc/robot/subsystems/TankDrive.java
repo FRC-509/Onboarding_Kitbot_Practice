@@ -64,6 +64,11 @@ public class TankDrive extends SubsystemBase {
     SmartDashboard.putNumber("Left speed: ", leftSpeed);
 
   }
+
+  public void EmergencyStop(){
+    rightDrive(0);
+    leftDrive(0);
+  }
   
   /**
    * An example method querying a boolean state of the subsystem (for example, a digital sensor).
