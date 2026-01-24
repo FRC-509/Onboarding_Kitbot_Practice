@@ -4,9 +4,7 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.units.measure.Velocity;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.IDs;
@@ -34,7 +32,7 @@ public class TankDrive extends SubsystemBase {
     driveConfig.Slot0.kP = Constants.PIDConstants.Drive.kDriveP;
     driveConfig.Slot0.kI = Constants.PIDConstants.Drive.kDriveI;
     driveConfig.Slot0.kD = Constants.PIDConstants.Drive.kDriveD;
-    driveConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+    driveConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
 
     //aplying the PID
     frontLeft.getConfigurator().apply(driveConfig);
