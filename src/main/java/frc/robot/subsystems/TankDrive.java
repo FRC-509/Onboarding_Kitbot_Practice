@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -42,12 +43,14 @@ public class TankDrive extends SubsystemBase {
   }
     //sets left speed closed loop- yayy!
   private void leftDrive(double speed){
+    MathUtil.clamp(speed, -1, 1);
     frontLeft.setControl(leftRequest.withVelocity(speed));
     backLeft.setControl(leftRequest.withVelocity(speed));
   }
 
   //  sets right speed with closed loop
   private void rightDrive(double speed){
+    MathUtil.clamp(speed, -1, 1);
     frontRight.setControl(rightRequest.withVelocity(speed));
     backRight.setControl(rightRequest.withVelocity(speed));
   }
