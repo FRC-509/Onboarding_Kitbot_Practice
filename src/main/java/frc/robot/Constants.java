@@ -38,4 +38,18 @@ public final class Constants {
 
     public static final int intakeMotorID = 0;
   }
+
+  public final class PIDConstants{
+    public final class Drive{
+      public static final double kDriveP = 0;
+      public static final double kDriveI = 0;
+      public static final double kDriveD = 0;
+    }
+
+    public final class Intake{
+      public static final double kIntakeP = 0;
+      public static final double kIntakeI = 0;
+      public static final double kIntakeD = 0;
+    }
+  }
 }

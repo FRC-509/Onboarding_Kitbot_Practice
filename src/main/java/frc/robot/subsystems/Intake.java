@@ -4,19 +4,29 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
 import frc.robot.Constants.IDs;
 import frc.robot.Constants.intakeConstants;
 
+import com.ctre.phoenix6.controls.VelocityDutyCycle;
+import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
 
 public class Intake extends SubsystemBase {
   public final TalonFX intakeMotor = new TalonFX(IDs.intakeMotorID);
+  
+  
 
-  public Intake() {}
+  public Intake() {
+    TalonFXConfiguration intakeConfig = new TalonFXConfiguration();
+  }
 
   public void intake(){
     intakeMotor.set(intakeConstants.kIntakeSpeed);
+    
   }
 
   public void outtake(){
