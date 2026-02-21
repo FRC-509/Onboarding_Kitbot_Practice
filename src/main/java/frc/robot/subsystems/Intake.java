@@ -6,6 +6,9 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.networktables.NetworkTableEntry;
 import frc.robot.Constants;
 import frc.robot.Constants.IDs;
 import frc.robot.Constants.intakeConstants;
@@ -18,6 +21,10 @@ import com.ctre.phoenix6.controls.VoltageOut;
 public class Intake extends SubsystemBase {
   public final TalonFX intakeMotor = new TalonFX(IDs.intakeMotorID);
   public final VoltageOut intakeVoltageOut = new VoltageOut(0).withEnableFOC(false);
+
+  private final NetworkTable intakeTable = NetworkTableInstance.getDefault().getTable("Intake");
+  private final NetworkTableEntry intakeStateEntry = intakeTable.getEntry("Intaking");  
+  private final NetworkTableEntry intakeVelocityEntry = intakeTable.getEntry("IntakeVelocity");
   
 
   public Intake() {
@@ -40,40 +47,21 @@ public class Intake extends SubsystemBase {
   }
 
   private void end(){
-    intakeMotor.set(0);
+    intakeMotor.setControl(intakeVoltageOut.withOutput(0));
   }
 
-  /**
-   * Example command factory method.
-   *
-   * @return a command
-   */
-  public Command exampleMethodCommand() {
-    // Inline construction of command goes here.
-    // Subsystem::RunOnce implicitly requires `this` subsystem.
-    return runOnce(
-        () -> {
-          /* one-time action goes here */
-        });
+  public boolean getIntakeState(){
+    return Math.abs(intakeMotor.getVelocity().getValueAsDouble()) > 0.1;
   }
 
-  /*
-   * An example method querying a boolean state of the subsystem (for example, a digital sensor).
-   *
-   * @return value of some boolean subsystem state, such as a digital sensor.
-   */
-  public boolean exampleCondition() {
-    // Query some boolean state, such as a digital sensor.
-    return false;
+  public double getIntakeVelocity(){
+    return intakeMotor.getVelocity().getValueAsDouble();
   }
-
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    intakeStateEntry.setBoolean(getIntakeState());
+    intakeVelocityEntry.setDouble(getIntakeVelocity());
   }
 
-  @Override
-  public void simulationPeriodic() {
-    // This method will be called once per scheduler run during simulation
-  }
 }
