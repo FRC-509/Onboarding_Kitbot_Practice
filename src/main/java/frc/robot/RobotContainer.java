@@ -23,6 +23,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final Intake intakeSubsystem = new Intake();
   private final TankDrive tankDriveSubsystem = new TankDrive();
+  private final LedLights lightBulb = new LEDLights();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController driverController =
@@ -55,8 +56,14 @@ public class RobotContainer {
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
     driverController.rightTrigger().onTrue(new IntakeCommand(intakeSubsystem));
+    driverController.rightTrigger().onFalse(new IntakeCommand(intakeSubsystem).withInterrupt(() -> true));
 
-    driverController.a().onTrue(new DefaultDriveCommand(tankDriveSubsystem,() -> 0 ,() -> 0));
+    lightBulb.isClimbing = () -> m_driverController.y().getAsBoolean();
+    lightBulb.isFiring = () -> m_driverController.x().getAsBoolean();
+    lightBulb.cantAim = () -> m_driverController.b().getAsBoolean();
+    lightBulb.shooterTorque = () -> m_driverController.getRightY();
+
+
   }
 
   /**
@@ -70,7 +77,7 @@ public class RobotContainer {
   // }
 
   public void ContainerPeriodic(){
-    SmartDashboard.putNumber("Forward: ", driverController.getRightX());
-    SmartDashboard.putNumber("Right: ", driverController.getLeftX());
+    // SmartDashboard.putNumber("Forward: ", driverController.getRightX());
+    // SmartDashboard.putNumber("Right: ", driverController.getLeftX());
   }
 }
