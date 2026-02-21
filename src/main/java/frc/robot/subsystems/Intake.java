@@ -4,12 +4,12 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj2.command.Command;
+//import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.NetworkTableEntry;
-import frc.robot.Constants;
+//import frc.robot.Constants;
 import frc.robot.Constants.IDs;
 import frc.robot.Constants.intakeConstants;
 
@@ -46,9 +46,9 @@ public class Intake extends SubsystemBase {
     intakeMotor.setControl(intakeVoltageOut.withOutput(intakeConstants.kOuttakeSpeed));
   }
 
-  private void stop(){
-    intakeMotor.setControl(intakeVoltageOut.withOutput(0));
-  }
+  // private void stop(){
+  //   intakeMotor.setControl(intakeVoltageOut.withOutput(0));
+  // }
 
   public boolean getIntakeState(){
     return Math.abs(intakeMotor.getVelocity().getValueAsDouble()) > 0.1;

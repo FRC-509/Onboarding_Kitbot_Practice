@@ -10,13 +10,14 @@ import edu.wpi.first.wpilibj.AddressableLEDBufferView;
 import edu.wpi.first.wpilibj.LEDPattern;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.DriverStation.Alliance;
+// import edu.wpi.first.wpilibj.DriverStation;
+// import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import static edu.wpi.first.units.Units.*;
 
 
 public class LEDLights extends SubsystemBase {
-    public static final Color allyColor = (DriverStation.getAlliance().equals(Alliance.Red))? Color.kRed: Color.kBlue;
+    //public static final Color allyColor = (DriverStation.getAlliance().equals(Alliance.Red))? Color.kRed: Color.kBlue;
+    public static final Color allyColor = Color.kRed; //temporary set, change later when we can test on the field
 
     private static final AddressableLED m_led = new AddressableLED(0); //replace PWM port with constant later
 

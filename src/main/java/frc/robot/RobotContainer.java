@@ -8,8 +8,9 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.DefaultDriveCommand;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.LEDLights;
 import frc.robot.subsystems.TankDrive;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -23,7 +24,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final Intake intakeSubsystem = new Intake();
   private final TankDrive tankDriveSubsystem = new TankDrive();
-  private final LedLights lightBulb = new LEDLights();
+  private final LEDLights lightBulb = new LEDLights();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController driverController =
@@ -56,12 +57,11 @@ public class RobotContainer {
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
     driverController.rightTrigger().onTrue(new IntakeCommand(intakeSubsystem));
-    driverController.rightTrigger().onFalse(new IntakeCommand(intakeSubsystem).withInterrupt(() -> true));
 
-    lightBulb.isClimbing = () -> m_driverController.y().getAsBoolean();
-    lightBulb.isFiring = () -> m_driverController.x().getAsBoolean();
-    lightBulb.cantAim = () -> m_driverController.b().getAsBoolean();
-    lightBulb.shooterTorque = () -> m_driverController.getRightY();
+    lightBulb.isClimbing = () -> driverController.y().getAsBoolean();
+    lightBulb.isFiring = () -> driverController.x().getAsBoolean();
+    lightBulb.cantAim = () -> driverController.b().getAsBoolean();
+    lightBulb.shooterTorque = () -> driverController.getRightY();
 
 
   }
