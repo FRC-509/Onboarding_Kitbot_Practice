@@ -46,7 +46,7 @@ public class Intake extends SubsystemBase {
     intakeMotor.setControl(intakeVoltageOut.withOutput(intakeConstants.kOuttakeSpeed));
   }
 
-  private void end(){
+  private void stop(){
     intakeMotor.setControl(intakeVoltageOut.withOutput(0));
   }
 

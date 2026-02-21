@@ -71,8 +71,6 @@ public class TankDrive extends SubsystemBase {
     double rightSpeed = forward - right;
     leftDrive(leftSpeed);
     rightDrive(rightSpeed);
-    SmartDashboard.putNumber("Right speed: ", rightSpeed);
-    SmartDashboard.putNumber("Left speed: ", leftSpeed);
   }
   
   public double getLeftDriveVelocity(){
