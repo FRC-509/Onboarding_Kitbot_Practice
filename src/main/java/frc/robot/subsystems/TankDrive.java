@@ -5,13 +5,15 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.IDs;
 
 import com.ctre.phoenix6.controls.VelocityDutyCycle;
-import com.ctre.phoenix6.controls.VoltageOut;
+//import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
@@ -26,6 +28,12 @@ public class TankDrive extends SubsystemBase {
 
     private final VelocityDutyCycle leftRequest = new VelocityDutyCycle(0);
     private final VelocityDutyCycle rightRequest = new VelocityDutyCycle(0);
+
+    private final NetworkTable tankDriveTable = NetworkTableInstance.getDefault().getTable("Tank Drive");
+
+    private final NetworkTableEntry leftVelocityEntry = tankDriveTable.getEntry("LeftVelocity");
+    private final NetworkTableEntry rightVelocityEntry = tankDriveTable.getEntry("RightVelocity");
+    
     //private final VoltageOut openLoop = new VoltageOut(0).withEnableFOC(false);
 
   public TankDrive(){
@@ -45,14 +53,14 @@ public class TankDrive extends SubsystemBase {
   }
     //sets left speed closed loop- yayy!
   private void leftDrive(double speed){
-    MathUtil.clamp(speed, -1, 1);
+    speed = MathUtil.clamp(speed, -1, 1);
     frontLeft.setControl(leftRequest.withVelocity(-speed * 8));
     backLeft.setControl(leftRequest.withVelocity(-speed * 8));
   }
 
   //  sets right speed with closed loop
   private void rightDrive(double speed){
-    MathUtil.clamp(speed, -1, 1);
+    speed = MathUtil.clamp(speed, -1, 1);
     frontRight.setControl(rightRequest.withVelocity(speed * 8));
     backRight.setControl(rightRequest.withVelocity(speed* 8));
   }
@@ -63,12 +71,24 @@ public class TankDrive extends SubsystemBase {
     double rightSpeed = forward - right;
     leftDrive(leftSpeed);
     rightDrive(rightSpeed);
-    SmartDashboard.putNumber("Right speed: ", rightSpeed);
-    SmartDashboard.putNumber("Left speed: ", leftSpeed);
+  }
+  
+  public double getLeftDriveVelocity(){
+    return frontLeft.getVelocity().getValueAsDouble();
+  }
+
+  public double getRightDriveVelocity(){
+    return frontRight.getVelocity().getValueAsDouble();
   }
 
   public void EmergencyStop(){
     rightDrive(0);
     leftDrive(0);
+  }
+  
+  @Override
+  public void periodic(){
+    leftVelocityEntry.setDouble(getLeftDriveVelocity());
+    rightVelocityEntry.setDouble(getRightDriveVelocity());
   }
 }
