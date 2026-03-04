@@ -22,8 +22,8 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final Intake intakeSubsystem = new Intake();
-  private final TankDrive tankDriveSubsystem = new TankDrive();
+  /*private final Intake intakeSubsystem = new Intake();
+  private final TankDrive tankDriveSubsystem = new TankDrive();*/ //take out later
   private final LEDLights lightBulb = new LEDLights();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -48,7 +48,7 @@ public class RobotContainer {
    */
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-    tankDriveSubsystem.setDefaultCommand(
+    /*tankDriveSubsystem.setDefaultCommand(
       new DefaultDriveCommand(
         tankDriveSubsystem,
          () -> -driverController.getLeftX(), 
@@ -57,7 +57,7 @@ public class RobotContainer {
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
     driverController.rightTrigger().onTrue(new IntakeCommand(intakeSubsystem));
-
+*/ //take out later
     lightBulb.isClimbing = () -> driverController.y().getAsBoolean();
     lightBulb.isFiring = () -> driverController.x().getAsBoolean();
     lightBulb.cantAim = () -> driverController.b().getAsBoolean();

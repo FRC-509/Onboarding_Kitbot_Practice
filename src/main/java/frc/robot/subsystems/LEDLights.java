@@ -37,7 +37,7 @@ public class LEDLights extends SubsystemBase {
         AUTO_COMPLETED(LEDPattern.solid(Color.kGreen)),
         CLIMBING(LEDPattern.rainbow(255, 120).scrollAtRelativeSpeed(Percent.per(Second).of(25)));
 
-        public LEDPattern pattern;
+        private LEDPattern pattern;
 
         private UnderglowStates(LEDPattern pattern) {
             this.pattern = pattern;
@@ -48,6 +48,10 @@ public class LEDLights extends SubsystemBase {
             patternToSet.applyTo(m_underglowBufferView);
             m_led.setData(m_ledBuffer);
         }
+
+        public LEDPattern getPattern() {
+            return pattern;
+        }
     }
     
     public enum TurretStates {
@@ -57,7 +61,7 @@ public class LEDLights extends SubsystemBase {
         AUTO_COMPLETED(LEDPattern.solid(Color.kGreen)),
         CLIMBING(LEDPattern.rainbow(255, 120).scrollAtRelativeSpeed(Percent.per(Second).of(25)));
 
-        public LEDPattern pattern;
+        private LEDPattern pattern;
 
         private TurretStates(LEDPattern pattern) {
             this.pattern = pattern;
@@ -67,6 +71,10 @@ public class LEDLights extends SubsystemBase {
             LEDPattern patternToSet = pattern.atBrightness(Percent.of(brightness));
             patternToSet.applyTo(m_turretBufferView);
             m_led.setData(m_ledBuffer);
+        }
+
+        public LEDPattern getPattern() {
+            return pattern;
         }
     }
 
